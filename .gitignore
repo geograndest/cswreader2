@@ -1,0 +1,9 @@
+node_modules/
+cswserver/
+npm-debug.log
+yarn-error.log
+.idea
+.DS_Store
+./php_server_*.bat
+./php_server_home.bat
+./php_server_pro.bat

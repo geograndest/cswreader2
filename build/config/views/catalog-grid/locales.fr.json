@@ -1,0 +1,17 @@
+{
+    "lang": "fr",
+    "view": "catalog",
+    "ui": {
+        "catalog": {},
+        "cardGrid": {
+            "opendata": "OPEN DATA",
+            "wfs": "WFS",
+            "wms": "WMS",
+            "service_wfs": "Service WFS",
+            "service_wms": "Service WMS",
+            "title": "Titre",
+            "abstract": "Résumé",
+            "keywords": "Mots-clés"
+        }
+    }
+}

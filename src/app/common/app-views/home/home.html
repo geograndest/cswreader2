@@ -1,0 +1,20 @@
+<div class="container">
+    <p>L’objectif de cette application est de proposer un catalogue des données géographiques décrites conformément à la directive
+        européenne Inspire.</p>
+    <p>Cet outil se veut simple et conviviale.
+        <br /> Pour plus d'information sur son utilisation, n'hésitez pas à consulter l'aide en ligne (cf. bouton (i) en haut à
+        droite).
+    </p>
+
+    <p>Liste des catalogue consultables:</p>
+    <ul>
+        <li ng-repeat="csw in $ctrl.cswList track by $index">
+            <a ui-sref="app.catalogGrid({cswUrl: csw.url})" ui-sref-opts="{ reload: true, inherit: true, notify: true }">
+                {{csw.title}}
+            </a>
+            <br />
+            <em class="small">{{csw.description}}</em>
+        </li>
+    </ul>
+    <p>Bonne visite!</p>
+</div>

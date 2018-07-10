@@ -1,0 +1,96 @@
+<div ng-if="$ctrl.tpl == 'grid'">
+    <div style="color:#444444; font-size:1.1em; display:block;">
+        <a style="color:#444444; min-height:4.2em;" popover-trigger="'mouseenter'" uib-popover-template="'csw-card-popover.html'"
+            popover-placement="auto" ng-click="$ctrl.viewMd(($ctrl.md | getValue:'getRecords':'mdFileIdentifier' | toString), ($ctrl.md | getValue:'getRecords':'mdHierarchyLevel' | toString), ($ctrl.md | getValue:'getRecords':'dataKeywords.keywords|srvKeywords.keywords'))">
+            <strong>
+                {{$ctrl.md | getValue:'getRecords':'dataTitle|srvTitle' | toString | truncate:65:true }}
+            </strong>
+        </a>
+        <div class="thumbnail">
+            <a ng-click="$ctrl.viewMd(($ctrl.md | getValue:'getRecords':'mdFileIdentifier' | toString), ($ctrl.md | getValue:'getRecords':'mdHierarchyLevel' | toString), ($ctrl.md | getValue:'getRecords':'dataKeywords.keywords|srvKeywords.keywords'))">
+                <div class="image" ng-repeat="dataBrowseGraphic in $ctrl.md | getValue:'getRecords':'dataBrowseGraphics|srvBrowseGraphics' | limitTo:1 track by $index">
+                    <img class="img-rounded img-responsive" ng-src="{{dataBrowseGraphic | getValue:'getRecords':'browseGraphicFileName' | toString}}"
+                        alt="{{dataBrowseGraphic | getValue:'getRecords':'browseGraphicFileDescription' | toString}}" />
+                </div>
+            </a>
+            <div class="labels caption pull-right" ng-if="($ctrl.md | getValue:'getRecords':'mdHierarchyLevel' | toString) != 'service'">
+                <a title="{{$ctrl.locales.opendata}}" class="label label-success pull-right" ng-if="$ctrl.md | getValue:'getRecords':'dataKeywords.keywords' | arrayContains:'données ouvertes':'contains'"
+                    ng-click="$ctrl.clickLabel(undefined, undefined, [$ctrl.locales.opendata, 'dataKeywords.keywords|données ouvertes', 'mdHierarchyLevel|dataset'])">{{$ctrl.locales.opendata}}</a>
+                <a title="{{$ctrl.locales.wfs}}" class="label label-warning pull-right" ng-if="$ctrl.md | getValue:'getRecords':'dataLinkages.protocol' | arrayContains:'wfs':'contains'"
+                    ng-click="$ctrl.clickLabel(undefined, undefined, [$ctrl.locales.wfs, 'dataLinkages.protocol|wfs', 'mdHierarchyLevel|dataset'])">{{$ctrl.locales.wfs}}</a>
+                <a title="{{$ctrl.locales.wms}}" class="label label-primary pull-right" ng-if="$ctrl.md | getValue:'getRecords':'dataLinkages.protocol' | arrayContains:'wms':'contains'"
+                    ng-click="$ctrl.clickLabel(undefined, undefined, [$ctrl.locales.wms, 'dataLinkages.protocol|wms', 'mdHierarchyLevel|dataset'])">{{$ctrl.locales.wms}}</a>
+            </div>
+            <div class="labels caption pull-right" ng-if="($ctrl.md | getValue:'getRecords':'mdHierarchyLevel' | toString) == 'service'">
+                <a title="{{$ctrl.locales.service_wfs}}" class="label label-warning pull-right" ng-if="$ctrl.md | getValue:'getRecords':'dataLinkages.protocol' | arrayContains:'wfs':'contains'"
+                    ng-click="$ctrl.clickLabel(undefined, undefined, [$ctrl.locales.service_wfs, 'dataLinkages.protocol|wfs', 'mdHierarchyLevel|service'])">{{$ctrl.locales.service_wfs}}</a>
+                <a title="{{$ctrl.locales.service_wms}}" class="label label-primary pull-right" ng-if="$ctrl.md | getValue:'getRecords':'dataLinkages.protocol' | arrayContains:'wms':'contains'"
+                    ng-click="$ctrl.clickLabel(undefined, undefined, [$ctrl.locales.service_wms, 'dataLinkages.protocol|wfs', 'mdHierarchyLevel|service'])">{{$ctrl.locales.service_wms}}</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="csw-card-popover.html">
+        <div style="text-align:left;">
+            <div>
+                <strong>{{$ctrl.locales.title}}:</strong> {{$ctrl.md | getValue:'getRecords':'dataTitle|srvTitle' | toString }}
+            </div>
+            <div>
+                <strong>{{$ctrl.locales.abstract}}:</strong>
+                {{$ctrl.md | getValue:'getRecords':'dataAbstract|srvAbstract' | toString | truncate:250:true }}
+            </div>
+            <div>
+                <strong>{{$ctrl.locales.keywords}}:</strong>
+                <span ng-repeat="keywords in $ctrl.md | getValue:'getRecords':'dataKeywords|srvKeywords' track by $index">
+                    {{keywords | getValue:'getRecords':'keywords' | toString:', '}}
+                    <!-- {{$last ? '' : ', '}} -->
+                </span>
+                <span>{{$ctrl.md | getValue:'getRecords':'dataTopicCategories.topicCategory|srvTopicCategories.topicCategory' |
+                    translate:$ctrl.topicCategories | toString}}</span>
+            </div>
+        </div>
+    </script>
+</div>
+
+<!-- --------------------------------------------------------------------------------------------------- -->
+<div ng-if="$ctrl.tpl == 'list'">
+    <div class="thumbnail col-lg-2 col-md-3 col-sm-4 col-xs-2" ng-repeat="dataBrowseGraphic in $ctrl.md | getValue:'getRecords':'dataBrowseGraphics|srvBrowseGraphics' | limitTo:1 track by $index">
+        <img class="img-rounded img-responsive" ng-src="{{dataBrowseGraphic | getValue:'getRecords':'browseGraphicFileName' | toString}}"
+            alt="{{dataBrowseGraphic | getValue:'getRecords':'browseGraphicFileDescription' | toString}}" />
+    </div>
+    <div class="col-lg-10 col-md-9 col-sm-8 col-xs-10">
+        <h4 class="">
+            <strong>
+                <a ng-click="$ctrl.viewMd(($ctrl.md | getValue:'getRecords':'mdFileIdentifier' | toString), ($ctrl.md | getValue:'getRecords':'mdHierarchyLevel' | toString), ($ctrl.md | getValue:'getRecords':'dataKeywords.keywords|srvKeywords.keywords'))"
+                    style="color:#444444;">
+                    {{$ctrl.md | getValue:'getRecords':'dataTitle|srvTitle' | toString | truncate:70:true }}
+                </a>
+            </strong>
+        </h4>
+        <p>{{$ctrl.md | getValue:'getRecords':'dataAbstract|srvAbstract' | toString | truncate:300:true }}</p>
+        <div class="labels pull-left">
+            <div class="label label-warning" ng-repeat="keyword in $ctrl.md | getValue:'getRecords':'dataKeywords.keywords|srvKeywords.keywords' track by $index">
+                {{keyword}}
+            </div>
+            <div class="label label-info" ng-repeat="topicCategory in $ctrl.md | getValue:'getRecords':'dataTopicCategories.topicCategory|srvTopicCategories.topicCategory' | translate:$ctrl.topicCategories track by $index"
+                ng-if="(topicCategory | toString) != ''">
+                {{topicCategory | toString}}
+            </div>
+        </div>
+        <div class="labels pull-right" ng-if="($ctrl.md | getValue:'getRecords':'mdHierarchyLevel' | toString) != 'service'">
+            <a title="{{$ctrl.locales.opendata}}" class="label label-success pull-right" ng-if="$ctrl.md | getValue:'getRecords':'dataKeywords.keywords' | arrayContains:'données ouvertes':'contains'"
+                ng-click="$ctrl.clickLabel(undefined, undefined, [$ctrl.locales.opendata, 'dataKeywords.keywords|données ouvertes', 'mdHierarchyLevel|dataset'])">{{$ctrl.locales.opendata}}</a>
+            <a title="{{$ctrl.locales.wfs}}" class="label label-warning pull-right" ng-if="$ctrl.md | getValue:'getRecords':'dataLinkages.protocol' | arrayContains:'wfs':'contains'"
+                ng-click="$ctrl.clickLabel(undefined, undefined, [$ctrl.locales.wfs, 'dataLinkages.protocol|wfs', 'mdHierarchyLevel|dataset'])">{{$ctrl.locales.wfs}}</a>
+            <a title="{{$ctrl.locales.wms}}" class="label label-primary pull-right" ng-if="$ctrl.md | getValue:'getRecords':'dataLinkages.protocol' | arrayContains:'wms':'contains'"
+                ng-click="$ctrl.clickLabel(undefined, undefined, [$ctrl.locales.wms, 'dataLinkages.protocol|wms', 'mdHierarchyLevel|dataset'])">{{$ctrl.locales.wms}}</a>
+        </div>
+        <div class="labels pull-right" ng-if="($ctrl.md | getValue:'getRecords':'mdHierarchyLevel' | toString) == 'service'">
+            <a title="{{$ctrl.locales.service_wfs}}" class="label label-warning pull-right" ng-if="$ctrl.md | getValue:'getRecords':'dataLinkages.protocol' | arrayContains:'wfs':'contains'"
+                ng-click="$ctrl.clickLabel(undefined, undefined, [$ctrl.locales.service_wfs, 'dataLinkages.protocol|wfs', 'mdHierarchyLevel|service'])">{{$ctrl.locales.service_wfs}}</a>
+            <a title="{{$ctrl.locales.service_wms}}" class="label label-primary pull-right" ng-if="$ctrl.md | getValue:'getRecords':'dataLinkages.protocol' | arrayContains:'wms':'contains'"
+                ng-click="$ctrl.clickLabel(undefined, undefined, [$ctrl.locales.service_wms, 'dataLinkages.protocol|wfs', 'mdHierarchyLevel|service'])">{{$ctrl.locales.service_wms}}</a>
+        </div>
+    </div>
+    <hr/>
+</div>

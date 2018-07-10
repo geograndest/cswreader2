@@ -1,0 +1,21 @@
+{
+    "lang": "fr",
+    "view": "catalog",
+    "ui": {
+        "catalog": {
+
+        },
+        "cardList": {
+            "opendata": "OPEN DATA",
+            "wfs": "WFS",
+            "wms": "WMS"
+        },
+        "cardGrid": {
+            "opendata": "OPEN DATA",
+            "wfs": "WFS",
+            "wms": "WMS",
+            "abstract": "Résumé",
+            "keywords": "Mots-clés"
+        }
+    }
+}

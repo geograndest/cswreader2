@@ -1,0 +1,14 @@
+{
+    "lang": "fr",
+    "view": "catalog",
+    "ui": {
+        "catalog": {},
+        "cardList": {
+            "opendata": "OPEN DATA",
+            "wfs": "WFS",
+            "wms": "WMS",
+            "service_wfs": "Service WFS",
+            "service_wms": "Service WMS"
+        }
+    }
+}
