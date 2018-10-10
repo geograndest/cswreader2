@@ -20,7 +20,7 @@ export class CswCatalogServices {
         version = version || '2.0.2';
         var params = 'REQUEST=GetCapabilities&SERVICE=' + service + '&VERSION=' + version + '';
         var getCapabilitiesUrl = this.UtilsService.getBaseUrl(cswUrl) + '?' + params;
-        var url = this.UtilsService.getProxyUrl(getCapabilitiesUrl, '');
+        var url = this.UtilsService.getProxyUrl(getCapabilitiesUrl, proxy);
         return this.$http.get(url)
             .then((response) => {
                 var data = this.XmlConverterService.xml2js(response.data);
@@ -58,13 +58,13 @@ export class CswCatalogServices {
             'resulttype=results',
             'outputschema=http://www.isotc211.org/2005/gmd',
             'typenames=gmd:MD_Metadata',
-            'constraint_language_version=1.0.0',
+            'constraint_language_version=1.1.0',
             'maxrecords=' + csw.maxRecords,
             'startposition=' + csw.startPosition
         ];
         // contraint
         if (csw.constraint) {
-            var constraint = csw.constraintType + "+LIKE+'" + encodeURIComponent('*' + csw.constraint + '*') + "'";
+            var constraint = csw.constraintType + "+LIKE+'*" + csw.constraint + "*'";
             url_params.push('constraint=' + constraint);
         }
         var params = url_params.join('&');

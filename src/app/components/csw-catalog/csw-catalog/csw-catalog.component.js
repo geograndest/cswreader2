@@ -32,6 +32,7 @@ const cswCatalogController = class CswCatalogController {
     }
 
     getMoreRecords(more) {
+        // console.log(1, this.getMoreBusy);
         if (this.getMoreBusy) {
             return;
         }
@@ -72,16 +73,19 @@ const cswCatalogController = class CswCatalogController {
                 data['csw__GetRecordsResponse'][0]['csw__SearchResults'][0]['gmd__MD_Metadata'] = filterList;
                 this.records = data;
             }
-            this.records.visibleRecords = this.visibleRecords;
-            this.records.matchedRecords = this.matchedRecords;
+            this.records.visibleRecords = this.visibleRecords || this.records.visibleRecords;
+            this.records.matchedRecords = this.matchedRecords || this.records.matchedRecords;
+            // console.log(this.visibleRecords, this.matchedRecords);
             this.getRecords({
                 records: this.records
             });
 
+            // Stop this.getMoreRecords() if no more items to load
+            // this.getMoreBusy = false;
             if (this.csw.startPosition < this.matchedRecords) {
                 this.getMoreBusy = false;
             }
-        })
+        });
     }
 
     onViewMd(mdFileIdentifier, mdHierarchyLevel, keywords) {

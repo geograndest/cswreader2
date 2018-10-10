@@ -4,7 +4,7 @@
         "title": "cswReader",
         "version": "2.0.0",
         "copyrights": "(c) CIGAL / GéoGrandEst 2018",
-        "copyrights_url": "https://www.cigalsace.org",
+        "copyrights_url": "https://www.geograndest.fr",
         "_proxy": "php/index.php?url=",
         "proxy": "",
         "lang": "fr",
@@ -36,15 +36,20 @@
         "csw": {
             "url": "",
             "startposition": "1",
-            "maxrecords": "10",
+            "maxrecords": "50",
             "constraint_type": "AnyText",
             "constraint": "",
             "filter": "",
             "_filterType": ""
         },
         "csw_list": [{
-            "id": "1",
+            "id": "0",
             "title": "Catalogue GéoGrandEst - Géocatalogue",
+            "description": "Flux CSW du serveur GéoGrandEst contenant les fiches publiés sur le Géocatalogue national (données Inspire).",
+            "url": "https://www.geograndest.fr/geonetwork/srv/fre/csw-geocatalogue"
+        }, {
+            "id": "1",
+            "title": "Catalogue CIGAL - Géocatalogue",
             "description": "Flux CSW du serveur GéoGrandEst contenant les fiches publiés sur le Géocatalogue national (données Inspire).",
             "url": "https://www.cigalsace.org/geonetwork/srv/fre/csw-geocatalogue"
         }, {
