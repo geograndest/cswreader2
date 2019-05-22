@@ -39,6 +39,9 @@ import {
     cswMdServiceComponent
 } from './csw-metadata/csw-md-service/csw-md-service.component';
 import {
+    cswMdMapComponent
+} from './csw-metadata/csw-md-map/csw-md-map.component';
+import {
     contactComponent
 } from './csw-metadata/contact/contact.component';
 import {
@@ -60,6 +63,7 @@ export const cswCatalog = angular
     .component('cswInfos', cswInfosComponent)
     .component('cswMdData', cswMdDataComponent)
     .component('cswMdService', cswMdServiceComponent)
+    .component('cswMdMap', cswMdMapComponent)
     .component('contact', contactComponent)
     .component('wfsLinkage', wfsLinkageComponent)
     .name;

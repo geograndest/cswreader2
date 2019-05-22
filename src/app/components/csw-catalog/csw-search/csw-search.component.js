@@ -3,7 +3,12 @@ import template from './csw-search.html';
 const cswSearchController = class CswSearchController {
     constructor() {}
 
-    $onInit() {}
+    $onInit() {
+        this.isFilter = {};
+        this.isFilter.opendata = this.filter.split('|').includes('opendata');
+        this.isFilter.wms = this.filter.split('|').includes('wms');
+        this.isFilter.wfs = this.filter.split('|').includes('wfs');
+    }
 
     onSearch(constraintType, constraint, filter) {
         this.constraintType = constraintType;
@@ -35,6 +40,27 @@ const cswSearchController = class CswSearchController {
         this.onCswSearch(data);
     }
 
+    changeFilter(filter) {
+        var filters = this.filter.split('|');
+        if (filters.includes(filter)) {
+            var index = filters.indexOf(filter);
+            if (index !== -1) {
+                filters.splice(index, 1);
+            } 
+            this.filter = filters.join('|');
+        } else {
+            if (!filters.includes(filter)) {
+                filters.push(filter);
+            }
+            filters = filters.filter(function (el) {
+                return el;
+            });
+            this.filter = filters.join('|');
+        }
+        // this.isFilter[filter] = !this.isFilter[filter];
+        this.onSearch(this.constraintType, this.constraint, this.filter);
+    }
+
 }
 
 export const cswSearchComponent = {
@@ -45,6 +71,7 @@ export const cswSearchComponent = {
         clearFilter: '@',
         constraintType: '<',
         constraint: '<',
+        filters: '<',
         filter: '<',
         onCswSearch: '&'
     },

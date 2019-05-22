@@ -12,6 +12,7 @@ const cswCatalogController = class CswCatalogController {
 
     $onInit() {
         this.getMoreBusy = false;
+        this.test = 1;
         this.records = {};
         this.visibleRecords = 0;
         this.matchedRecords = 0;
@@ -27,16 +28,12 @@ const cswCatalogController = class CswCatalogController {
                 this.domainName = data;
             })
         ).then(
-            this.getMoreRecords(false)
+            // this.getMoreRecords(false)
+            this.getMore(false)
         );
     }
 
-    getMoreRecords(more) {
-        // console.log(1, this.getMoreBusy);
-        if (this.getMoreBusy) {
-            return;
-        }
-        this.getMoreBusy = true;
+    getMore(more) {
         if (more) {
             this.csw.startPosition = parseInt(this.csw.startPosition) + parseInt(this.csw.maxRecords);
         }
@@ -45,18 +42,20 @@ const cswCatalogController = class CswCatalogController {
             var filterList = [];
             if (this.csw.filter) {
                 for (var r = 0; r < mdList.length; r++) {
-                    if (!Array.isArray(this.csw.filter)) {
-                        this.csw.filter = [this.csw.filter];
-                    }
+                    var filters = this.csw.filter.split('|') || [];
+                    filters = filters.filter(function (el) {
+                        return el;
+                    });
                     var check = 0;
-                    for (var f = 1; f < this.csw.filter.length; f++) {
-                        var filter = this.csw.filter[f].split('|');
-                        var value = this.$filter('getValue')(mdList[r], 'getRecords', filter[0]);
-                        if (this.$filter('arrayContains')(value, filter[1], 'contains')) {
+                    for (var f = 0; f < filters.length; f++) {
+                        var filter = this.csw.filters[filters[f]];
+                        var filterValues = filter.filter.split('|');
+                        var value = this.$filter('getValue')(mdList[r], 'getRecords', filterValues[0]);
+                        if (this.$filter('arrayContains')(value, filterValues[1], 'contains')) {
                             check += 1;
                         }
                     }
-                    if (check == this.csw.filter.length - 1) {
+                    if (check == filters.length) {
                         filterList.push(mdList[r]);
                     }
                 }
@@ -75,20 +74,14 @@ const cswCatalogController = class CswCatalogController {
             }
             this.records.visibleRecords = this.visibleRecords || this.records.visibleRecords;
             this.records.matchedRecords = this.matchedRecords || this.records.matchedRecords;
-            // console.log(this.visibleRecords, this.matchedRecords);
             this.getRecords({
                 records: this.records
             });
-
-            // Stop this.getMoreRecords() if no more items to load
-            // this.getMoreBusy = false;
-            if (this.csw.startPosition < this.matchedRecords) {
-                this.getMoreBusy = false;
-            }
         });
     }
 
     onViewMd(mdFileIdentifier, mdHierarchyLevel, keywords) {
+        // console.log(mdFileIdentifier, mdHierarchyLevel, keywords);
         this.getRecord({
             mdFileIdentifier: mdFileIdentifier,
             mdHierarchyLevel: mdHierarchyLevel,

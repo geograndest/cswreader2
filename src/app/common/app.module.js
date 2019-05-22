@@ -135,6 +135,7 @@ export const app = angular
                 csw: ($transition$, appConfig) => {
                     'ngInject';
                     var csw = {};
+                    csw.filters = appConfig.catalog.csw.filters;
                     csw.cswUrl = $transition$.params().cswUrl || appConfig.catalog.csw_list[0].url;
                     csw.maxRecords = $transition$.params().maxRecords || appConfig.catalog.csw.maxrecords;
                     csw.startPosition = $transition$.params().startPosition || appConfig.catalog.csw.startposition;

@@ -21,6 +21,7 @@ export class CswCatalogServices {
         var params = 'REQUEST=GetCapabilities&SERVICE=' + service + '&VERSION=' + version + '';
         var getCapabilitiesUrl = this.UtilsService.getBaseUrl(cswUrl) + '?' + params;
         var url = this.UtilsService.getProxyUrl(getCapabilitiesUrl, proxy);
+        console.log('getCapabilities url:', url);
         return this.$http.get(url)
             .then((response) => {
                 var data = this.XmlConverterService.xml2js(response.data);
@@ -36,6 +37,7 @@ export class CswCatalogServices {
         proxy = proxy || '';
         var getDomainUrl = this.UtilsService.getBaseUrl(cswUrl) + '?REQUEST=GetDomain&SERVICE=CSW&VERSION=2.0.2&PROPERTYNAME=' + domain;
         var url = this.UtilsService.getProxyUrl(getDomainUrl, proxy);
+        console.log('getDomain url:', url);
         return this.$http.get(url)
             .then((response) => {
                 var data = this.XmlConverterService.xml2js(response.data);
@@ -64,12 +66,24 @@ export class CswCatalogServices {
         ];
         // contraint
         if (csw.constraint) {
-            var constraint = csw.constraintType + "+LIKE+'*" + csw.constraint + "*'";
+            var constraint = '';
+            if (['subject', 'keyword'].includes(csw.constraintType.toLowerCase())) {
+                // Requête particulière pour construire une speudo requête +/- sensible à la casse
+                var constraints = [];
+                constraints.push(csw.constraint.toLowerCase());
+                constraints.push(csw.constraint.charAt(0).toUpperCase() + csw.constraint.slice(1));
+                constraints.push(csw.constraint.toUpperCase());
+                constraints = constraints.map(x => csw.constraintType + "+LIKE+'%25" + x.split(' ').join('_') + "%25'");
+                constraint = constraints.join(' OR ');
+            } else {
+                constraint = csw.constraintType + "+LIKE+'%25" + csw.constraint + "%25'";
+            }
             url_params.push('constraint=' + constraint);
         }
         var params = url_params.join('&');
         var getRecordsUrl = this.UtilsService.getBaseUrl(csw.cswUrl) + '?' + params;
         var url = this.UtilsService.getProxyUrl(getRecordsUrl, csw.proxy);
+        console.log('getRecords url:', url);
         return this.$http.get(url)
             .then((response) => {
                 var data = this.XmlConverterService.xml2js(response.data);

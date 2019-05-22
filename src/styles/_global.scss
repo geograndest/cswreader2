@@ -2,18 +2,23 @@
 //     /* hack for infinite-scroll loading */
 //     height: 101%;
 // }
-
 body {
     padding-top: 70px;
     padding-bottom: 70px;
 }
 
-a,
 a[ng-click] {
     cursor: pointer;
 }
 
+
+/*
 .label {
     margin-left: 2px;
     display: inline-block;
+}
+*/
+
+.modal-lg {
+    max-width: 45% !important;
 }

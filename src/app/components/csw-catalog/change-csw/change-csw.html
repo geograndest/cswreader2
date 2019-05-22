@@ -1,27 +1,67 @@
-<span role="button" id="simple-dropdown" uib-dropdown-toggle class="glyphicon {{$ctrl.button.icon}}">
-    <span class="visible-xs-inline">
-        {{$ctrl.button.text}}
-    </span>
-</span>
-<ul class="dropdown-menu" aria-labelledby="simple-dropdown">
-    <li ng-repeat="csw in $ctrl.cswList track by $index">
-        <a href="" ng-click="$ctrl.changeCsw(csw.url)">
-            <strong>{{csw.title}}</strong>
-            <br/>
-            <span>{{csw.description}}</span>
+
+
+
+<!-- <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Dropdown button
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">New around here? Sign up</a>
+    <a class="dropdown-item" href="#">Forgot password?</a>
+    <div class="dropdown-divider"></div>
+    <form class="px-4 py-3">
+        <div class="form-group">
+        <label for="exampleDropdownFormEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+        </div>
+        <div class="form-group">
+        <label for="exampleDropdownFormPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
+        </div>
+        <div class="form-group">
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="dropdownCheck">
+            <label class="form-check-label" for="dropdownCheck">
+            Remember me
+            </label>
+        </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign in</button>
+    </form>
+    </div>
+</div> -->
+
+<div uib-dropdown class="btn-group mr-2">
+    <button id="change-csw-dropdown" uib-dropdown-toggle class="btn btn-outline-dark btn-sm" type="button">
+        <span class="{{$ctrl.button.icon}}" aria-hidden="true"></span> <span class="d-none d-lg-inline">{{$ctrl.button.text}}</span>
+    </button>
+    <div uib-dropdown-menu class="dropdown-menu dropdown-menu-right" aria-labelledby="change-csw-dropdown" role="menu">
+        <!-- <a class="dropdown-item" href="#">New around here? Sign up</a>
+        <a class="dropdown-item" href="#">Forgot password?</a> -->
+        <a class="dropdown-item" ng-repeat="csw in $ctrl.cswList track by $index" ng-click="$ctrl.changeCsw(csw.url)">
+            <!-- <a href="" > -->
+                <strong>{{csw.title}}</strong>
+                <br/>
+                <small>{{csw.description}}</small>
+            <!-- </a> -->
         </a>
-    </li>
-    <li role="separator" class="divider"></li>
-    <li class="">
-        <form id="form_cswurl" class="navbar-form" role="search">
-            <div class="input-group input-group-sm col-xs-12">
-                <input type="text" class="form-control" placeholder="{{$ctrl.placeholder}}" name="csw_url" id="csw_url" ng-model="$ctrl.cswUrl" />
-                <div class="input-group-btn">
-                    <button class="btn btn-default" type="submit" ng-click="$ctrl.changeCsw($ctrl.cswUrl)">
-                        <i class="glyphicon glyphicon-globe"></i>
-                    </button>
+        <div class="dropdown-divider"></div>
+        <!-- <li class=""> -->
+            <form id="form_cswurl" class="px-4 py-3" role="search">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control form-control-sm" placeholder="{{$ctrl.placeholder}}" name="csw_url" id="csw_url" ng-model="$ctrl.cswUrl" />
+                    <!-- <div class="input-group-btn">
+                        <button class="btn btn-outline-dark btn-sm" type="submit" ng-click="$ctrl.changeCsw($ctrl.cswUrl)">
+                            <i class="fas fa-globe-europe"></i>
+                        </button>
+                    </div> -->
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-dark btn-sm" type="button" type="submit" ng-click="$ctrl.changeCsw($ctrl.cswUrl)">
+                            <i class="fas fa-globe-europe"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </form>
-    </li>
-</ul>
+            </form>
+        <!-- </li> -->
+    </div>
+</div>

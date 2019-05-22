@@ -65,6 +65,7 @@ const AppComponentController = class AppComponentController {
                 this.cswStats.matchedRecords = records.matchedRecords;
             },
             getRecord: (mdFileIdentifier, mdHierarchyLevel, keywords) => {
+                // console.log(mdFileIdentifier, mdHierarchyLevel, keywords);
                 var view_default_url;
                 var view_url;
                 var count = 0;
@@ -99,6 +100,7 @@ const AppComponentController = class AppComponentController {
                 if (!view_url) {
                     view_url = view_default_url;
                 }
+                console.log(view_url);
                 this.$state.transitionTo(view_url, {
                     md: mdFileIdentifier,
                     back: this.$state.current.name
@@ -128,7 +130,7 @@ const AppComponentController = class AppComponentController {
         };
 
         this.helpButton = {
-            icon: 'glyphicon-info-sign',
+            icon: 'fas fa-info-circle',
             tooltip: this.appLocales.ui.bt_help,
             format: 'button',
             text: this.appLocales.ui.bt_help,
@@ -175,7 +177,7 @@ const AppComponentController = class AppComponentController {
                 home: this.appConfig.views['home']
             },
             view: 'home',
-            format: 'button',
+            format: 'icon',
             onChangeView: (view) => {
                 this.$state.transitionTo(this.appConfig.views[view].url, false, {
                     reload: true,
@@ -203,7 +205,11 @@ const AppComponentController = class AppComponentController {
 
         this.changeCswButton = {
             hide: this.isHome || this.isMdView || !this.displayCswBtn,
-            tooltip: this.appLocales.ui.changecsw_tooltip,
+            tooltip: {
+                text: this.appLocales.ui.changecsw_tooltip,
+                placement: 'left',
+                trigger: 'mouseenter'
+            },
             icon: this.appConfig.catalog.icon,
             text: this.appLocales.ui.changecsw_text,
             placeholder: this.appLocales.ui.changecsw_placeholder,
@@ -243,7 +249,9 @@ const AppComponentController = class AppComponentController {
             constraintType: this.csw.constraintType,
             constraint: this.csw.constraint,
             constraintsType: this.appLocales.constraints_type,
+            filters: this.csw.filters,
             filter: this.csw.filter,
+            // csw: this.csw,
             placeholder: this.appLocales.ui.cswsearch_placeholder,
             clearfilter: this.appLocales.ui.bt_clearfilter,
             onCswSearch: (constraintType, constraintSearch, filter) => {

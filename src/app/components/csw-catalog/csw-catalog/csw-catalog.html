@@ -1,16 +1,40 @@
 <div class="container-fluid">
-    <div ng-if="$ctrl.tpl == 'grid'" infinite-scroll="$ctrl.getMoreRecords(true)" infinite-scroll-distance='2'
-        infinite-scroll-immediate-check="true" infinite-scroll-disabled="$ctrl.getMoreBusy">
+    <!-- <div ng-if="$ctrl.tpl == 'grid'"
+        infinite-scroll="$ctrl.getMoreRecords(true)" infinite-scroll-distance="1" _infinite-scroll-immediate-check="false" infinite-scroll-disabled="$ctrl.getMoreBusy">
         <div style="min-height:410px" class="md_grid_item col-lg-2 col-md-3 col-sm-4 col-xs-12 clearfix" ng-repeat="md in $ctrl.records | getValue:'getRecords':'mdList' track by $index">
             <csw-card tpl="grid" md="md" topic-categories="$ctrl.topicCategories" on-click-card="$ctrl.onViewMd(mdFileIdentifier, mdHierarchyLevel, keywords)"
                 locales="$ctrl.locales.ui.cardGrid" on-click-label="$ctrl.onCswSearch(constraintType, constraint, filter)"></csw-card>
         </div>
-    </div>
-    <div ng-if="$ctrl.tpl == 'list'" infinite-scroll="$ctrl.getMoreRecords(true)" infinite-scroll-distance="1"
-        infinite-scroll-disabled="$ctrl.getMoreBusy" infinite-scroll-immediate-check="true">
-        <div class="row md_list_item" ng-repeat="md in $ctrl.records | getValue:'getRecords':'mdList' track by $index">
-            <csw-card tpl="list" md="md" topic-categories="$ctrl.topicCategories" on-click-card="$ctrl.onViewMd(mdFileIdentifier, mdHierarchyLevel, keywords)"
-                locales="$ctrl.locales.ui.cardList" on-click-label="$ctrl.onCswSearch(constraintType, constraint, filter)"></csw-card>
+    </div> -->
+    <!-- <div ng-if="$ctrl.tpl == 'grid'">
+        <div style="min-height:410px" class="md_grid_item col-lg-2 col-md-3 col-sm-4 col-xs-12 clearfix" ng-repeat="md in $ctrl.records | getValue:'getRecords':'mdList' track by $index">
+            <csw-card tpl="grid" md="md" topic-categories="$ctrl.topicCategories" on-click-card="$ctrl.onViewMd(mdFileIdentifier, mdHierarchyLevel, keywords)"
+                locales="$ctrl.locales.ui.cardGrid" on-click-label="$ctrl.onCswSearch(constraintType, constraint, filter)"></csw-card>
         </div>
+        <div><button type="button" class="btn btn-outline-dark btn-sm" ng-click="$ctrl.getMore(true)">Load more...</button></div>
+    </div> -->
+    <!-- <div ng-if="$ctrl.tpl == 'grid'" class="md_grid_item col-lg-2 col-md-3 col-sm-4 col-xs-12 clearfix">
+        <csw-card style="min-height:410px" class=""" ng-repeat="md in $ctrl.records | getValue:'getRecords':'mdList' track by $index" tpl="grid" md="md" topic-categories="$ctrl.topicCategories" on-click-card="$ctrl.onViewMd(mdFileIdentifier, mdHierarchyLevel, keywords)"
+            locales="$ctrl.locales.ui.cardGrid" on-click-label="$ctrl.onCswSearch(constraintType, constraint, filter)"></csw-card>
+    </div> -->
+    <!-- <div ng-if="$ctrl.tpl == 'grid'" class="card-columns" >
+        <div style="min-height:410px" ng-repeat="md in $ctrl.records | getValue:'getRecords':'mdList' track by $index">
+            <csw-card tpl="grid" md="md" topic-categories="$ctrl.topicCategories" on-click-card="$ctrl.onViewMd(mdFileIdentifier, mdHierarchyLevel, keywords)"
+                locales="$ctrl.locales.ui.cardGrid" on-click-label="$ctrl.onCswSearch(constraintType, constraint, filter)"></csw-card>
+        </div>
+    </div> -->
+
+    <div class="row" ng-if="$ctrl.tpl == 'grid'">
+        <csw-card class="col-xs-12 col-sm-5 col-md-4 col-lg-3 col-xl-2 mb-3" ng-repeat="md in $ctrl.records | getValue:'getRecords':'mdList' track by $index" tpl="grid" md="md" topic-categories="$ctrl.topicCategories" on-click-card="$ctrl.onViewMd(mdFileIdentifier, mdHierarchyLevel, keywords)"
+            locales="$ctrl.locales.ui.cardGrid" on-click-label="$ctrl.onCswSearch(constraintType, constraint, filter)" filter="{{$ctrl.csw.filter}}"></csw-card>
     </div>
+
+    <div ng-if="$ctrl.tpl == 'list'">
+        <csw-card ng-repeat="md in $ctrl.records | getValue:'getRecords':'mdList' track by $index" tpl="list" md="md" topic-categories="$ctrl.topicCategories" on-click-card="$ctrl.onViewMd(mdFileIdentifier, mdHierarchyLevel, keywords)" locales="$ctrl.locales.ui.cardList"
+            on-click-label="$ctrl.onCswSearch(constraintType, constraint, filter)" filter="{{$ctrl.csw.filter}}"></csw-card>
+    </div>
+
+    <hr class="my-3 border-top border-light" />
+
+    <div class="w-100" ng-if="($ctrl.records | getValue:'getRecords':'mdList').length"><button type="button" class="btn btn-outline-primary btn-sm mx-auto d-block w-75" ng-click="$ctrl.getMore(true)">Load more...</button></div>
 </div>

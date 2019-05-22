@@ -5,12 +5,14 @@ const mdViewDataController = class MdViewDataController {
 
     $onInit() {
         this.codelists = this.appLocales.codelists;
+        this.viewerUrl = this.appConfig.app.viewer;
     }
 
 }
 
 export const mdViewDataComponent = {
     bindings: {
+        appConfig: '<',
         appLocales: '<',
         mdViewLocales: '<',
         md: '@',

@@ -1,53 +1,43 @@
-<nav id="header" class="navbar navbar-default navbar-fixed-top">
+<nav id="header" class="navbar navbar-expand-md navbar-light fixed-top bg-light">
     <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-                aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">
-                <span class="glyphicon glyphicon-globe"></span> {{:: $ctrl.headerTitle}}
-            </a>
+        <a class="navbar-brand" ui-sref="app.home" ui-sref-opts="{ reload: true, inherit: true, notify: true }">
+        <i class="fas fa-globe-europe"></i> {{:: $ctrl.headerTitle}}
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="mr-auto">
+        <csw-search ng-hide="$ctrl.cswSearchButton.hide == true" constraints-capabilities-values="$ctrl.cswSearchButton.constraintsValues" constraints-values="$ctrl.cswSearchButton.constraintsType" constraint-type="$ctrl.cswSearchButton.constraintType" placeholder-search="{{$ctrl.cswSearchButton.placeholder}}"
+            clear-filter="{{$ctrl.cswSearchButton.clearfilter}}" constraint="$ctrl.cswSearchButton.constraint" filter="$ctrl.cswSearchButton.filter" filters="$ctrl.cswSearchButton.filters"
+            on-csw-search="$ctrl.cswSearchButton.onCswSearch(constraintType, constraintSearch, filter)"></csw-search>
         </div>
-        <div class="collapse navbar-collapse" id="navbar">
-            <ul class="nav navbar-nav">
-                <li ng-hide="$ctrl.cswSearchButton.hide == true">
-                    <csw-search constraints-capabilities-values="$ctrl.cswSearchButton.constraintsValues" constraints-values="$ctrl.cswSearchButton.constraintsType"
-                        constraint-type="$ctrl.cswSearchButton.constraintType" placeholder-search="{{$ctrl.cswSearchButton.placeholder}}"
-                        clear-filter="{{$ctrl.cswSearchButton.clearfilter}}" constraint="$ctrl.cswSearchButton.constraint" filter="$ctrl.cswSearchButton.filter"
-                        on-csw-search="$ctrl.cswSearchButton.onCswSearch(constraintType, constraintSearch, filter)"></csw-search>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li uib-tooltip="{{$ctrl.homeButton.tooltip}}" tooltip-trigger="mouseenter" tooltip-placement="bottom" ng-hide="$ctrl.homeButton.hide == true">
-                    <a role="button">
-                        <change-view format="{{$ctrl.homeButton.format}}" views="$ctrl.homeButton.views" view="$ctrl.homeButton.view" on-change="$ctrl.homeButton.onChangeView(view)"
-                            lang="$ctrl.lang"></change-view>
-                    </a>
-                </li>
-                <li uib-tooltip="{{$ctrl.helpButton.tooltip}}" tooltip-trigger="mouseenter" tooltip-placement="bottom">
-                    <a role="button">
-                        <page-modal-button format="{{$ctrl.helpButton.format}}" title="{{$ctrl.helpButton.title}}" text="{{$ctrl.helpButton.text}}"
-                            content-url="$ctrl.helpButton.contentUrl" icon="{{$ctrl.helpButton.icon}}"></page-modal-button>
-                    </a>
-                </li>
-                <li uib-tooltip="{{$ctrl.changeViewButton.tooltip}}" tooltip-trigger="mouseenter" tooltip-placement="bottom" ng-hide="$ctrl.changeViewButton.hide == true">
-                    <a role="button">
-                        <change-view format="{{$ctrl.changeViewButton.format}}" views="$ctrl.changeViewButton.views" view="$ctrl.changeViewButton.view"
-                            on-change="$ctrl.changeViewButton.onChangeView(view)" lang="$ctrl.lang"></change-view>
-                    </a>
-                </li>
-                <li uib-tooltip="{{$ctrl.changeCswButton.tooltip}}" tooltip-trigger="mouseenter" tooltip-placement="bottom" ng-hide="$ctrl.changeCswButton.hide == true">
-                    <a role="button">
-                        <change-csw uib-dropdown ng-click="$event.stopPropagation()" button="{text: $ctrl.changeCswButton.text, icon: $ctrl.changeCswButton.icon}"
-                            csw-list="$ctrl.changeCswButton.cswList" placeholder="$ctrl.changeCswButton.placeholder" csw-url="$ctrl.changeCswButton.cswUrl"
-                            on-change="$ctrl.changeCswButton.onChangeCsw(cswUrl)"></change-csw>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <ul class="navbar-nav">
+            <li uib-tooltip="{{$ctrl.homeButton.tooltip}}" tooltip-trigger="mouseenter" tooltip-placement="bottom" ng-hide="$ctrl.homeButton.hide == true">
+                <a role="button" class="mr-2">
+                    <change-view format="{{$ctrl.homeButton.format}}" views="$ctrl.homeButton.views" view="$ctrl.homeButton.view" on-change="$ctrl.homeButton.onChangeView(view)"
+                        lang="$ctrl.lang"></change-view>
+                </a>
+            </li>
+            <li uib-tooltip="{{$ctrl.changeViewButton.tooltip}}" tooltip-trigger="mouseenter" tooltip-placement="bottom" ng-hide="$ctrl.changeViewButton.hide == true">
+                <a role="button" class="mr-2">
+                    <change-view format="{{$ctrl.changeViewButton.format}}" views="$ctrl.changeViewButton.views" view="$ctrl.changeViewButton.view"
+                        on-change="$ctrl.changeViewButton.onChangeView(view)" lang="$ctrl.lang"></change-view>
+                </a>
+            </li>
+            <li uib-tooltip="{{$ctrl.changeCswButton.tooltip.text}}" tooltip-trigger="{{$ctrl.changeCswButton.tooltip.trigger}}" tooltip-placement="{{$ctrl.changeCswButton.tooltip.placement}}" ng-hide="$ctrl.changeCswButton.hide == true">
+                    <change-csw uib-dropdown ng-click="$event.stopPropagation()" button="{text: $ctrl.changeCswButton.text, icon: $ctrl.changeCswButton.icon}"
+                        csw-list="$ctrl.changeCswButton.cswList" placeholder="$ctrl.changeCswButton.placeholder" csw-url="$ctrl.changeCswButton.cswUrl"
+                        on-change="$ctrl.changeCswButton.onChangeCsw(cswUrl)" tooltip="$ctrl.changeCswButton.tooltip"></change-csw>
+            </li>
+            <li uib-tooltip="{{$ctrl.helpButton.tooltip}}" tooltip-trigger="mouseenter" tooltip-placement="bottom">
+                <a role="button" class="mr-2">
+                    <page-modal-button format="{{$ctrl.helpButton.format}}" title="{{$ctrl.helpButton.title}}" text="{{$ctrl.helpButton.text}}"
+                        content-url="$ctrl.helpButton.contentUrl" icon="{{$ctrl.helpButton.icon}}"></page-modal-button>
+                </a>
+            </li>
+        </ul>
     </div>
 </nav>

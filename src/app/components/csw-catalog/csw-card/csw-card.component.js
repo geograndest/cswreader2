@@ -6,6 +6,7 @@ const cswCardController = class CswCardController {
     $onInit() {}
 
     viewMd(mdFileIdentifier, mdHierarchyLevel, keywords) {
+        // console.log(mdFileIdentifier, mdHierarchyLevel, keywords);
         this.onClickCard({
             mdFileIdentifier: mdFileIdentifier,
             mdHierarchyLevel: mdHierarchyLevel,
@@ -13,11 +14,28 @@ const cswCardController = class CswCardController {
         });
     }
 
-    clickLabel(constraintType, constraint, filter) {
+    clickBadge(constraintType, constraint, filter) {
+        var filters = this.filter.split('|');
+        if (filters.includes(filter)) {
+            var index = filters.indexOf(filter);
+            if (index !== -1) {
+                filters.splice(index, 1);
+            } 
+            this.filter = filters.join('|');
+        } else {
+            if (!filters.includes(filter)) {
+                filters.push(filter);
+            }
+            filters = filters.filter(function (el) {
+                return el;
+            });
+            this.filter = filters.join('|');
+        }
+
         this.onClickLabel({
             constraintType: constraintType,
             constraint: constraint,
-            filter: filter
+            filter: this.filter
         });
     }
 
@@ -26,11 +44,12 @@ const cswCardController = class CswCardController {
 export const cswCardComponent = {
     bindings: {
         tpl: '@',
+        filter: '@',
         md: '<',
         locales: '<',
         topicCategories: '<',
         onClickCard: '&',
-        onClickLabel: '&',
+        onClickLabel: '&'
     },
     template: template,
     controller: cswCardController,

@@ -3,10 +3,11 @@
         "name": "cswReader",
         "title": "cswReader",
         "version": "2.0.0",
-        "copyrights": "(c) CIGAL / GéoGrandEst 2018",
+        "copyrights": "(c) CIGAL / GéoGrandEst 2019",
         "copyrights_url": "https://www.geograndest.fr",
         "_proxy": "php/index.php?url=",
         "proxy": "",
+        "viewer": "http://localhost:8000/xsviewer.html",
         "lang": "fr",
         "_module": "catalog",
         "_home": "home",
@@ -32,7 +33,7 @@
         }
     },
     "catalog": {
-        "icon": "glyphicon-globe",
+        "icon": "fas fa-globe-europe",
         "csw": {
             "url": "",
             "startposition": "1",
@@ -40,6 +41,11 @@
             "constraint_type": "AnyText",
             "constraint": "",
             "filter": "",
+            "filters": {
+                "wms": { "filter": "dataLinkages.protocol|wms", "color": "primary" },
+                "wfs": { "filter": "dataLinkages.protocol|wfs", "color": "warning" },
+                "opendata": { "filter": "dataKeywords.keywords|données ouvertes", "color": "success" }
+            },
             "_filterType": ""
         },
         "csw_list": [{
@@ -48,15 +54,10 @@
             "description": "Flux CSW du serveur GéoGrandEst contenant les fiches publiés sur le Géocatalogue national (données Inspire).",
             "url": "https://www.geograndest.fr/geonetwork/srv/fre/csw-geocatalogue"
         }, {
-            "id": "1",
-            "title": "Catalogue CIGAL - Géocatalogue",
-            "description": "Flux CSW du serveur GéoGrandEst contenant les fiches publiés sur le Géocatalogue national (données Inspire).",
-            "url": "https://www.cigalsace.org/geonetwork/srv/fre/csw-geocatalogue"
-        }, {
             "id": "2",
             "title": "Catalogue GéoGrandEst - Général",
             "description": "Flux CSW du serveur GéoGrandEst contenant l'ensemble des fiches de métadonnées (cartes et données géographiques).",
-            "url": "https://www.cigalsace.org/geonetwork/srv/fre/csw"
+            "url": "https://www.geograndest.fr/geonetwork/srv/fre/csw"
         }, {
             "id": "3",
             "title": "Géocatalogue national",
@@ -66,15 +67,15 @@
             "id": "4",
             "title": "Fiches de métadonnées du CD67",
             "description": "Flux CSW du Conseil Départemental du Bas-Rhin.",
-            "url": "https://www.cigalsace.org/geonetwork/srv/fre/csw-cg67"
+            "url": "https://www.geograndest.fr/geonetwork/srv/fre/csw-cd67"
         }, {
             "id": "5",
-            "title": "Catalogue de test",
+            "title": "Catalogue de test cswServer",
             "description": "Flux CSW produit avec \"cswServer\" à partir d'une liste de fichier XML.",
             "url": "http://www.geograndest.net/cswserver/0.7.4/csw/node.php"
         }, {
             "id": "6",
-            "title": "Catalogue local",
+            "title": "Catalogue de test local",
             "description": "Flux CSW du serveur GéoGrandEst contenant les fiches publiés sur le Géocatalogue national (données Inspire).",
             "url": "http://localhost:8000/cswserver/csw/node.php"
         }]
@@ -84,9 +85,9 @@
         "catalogGrid": {
             "url": "app.catalogGrid",
             "path": "config/views/catalog-grid/catalog-grid.html",
-            "icon": "glyphicon-th-list",
+            "icon": "fas fa-th",
             "name": {
-                "fr": "Vue catalog (FR)",
+                "fr": "Vue catalogue",
                 "en": "catalog views (EN)",
                 "de": "catalog views (DE)"
             },
@@ -99,9 +100,9 @@
         "catalogList": {
             "url": "app.catalogList",
             "path": "config/views/catalog-list/catalog-list.html",
-            "icon": "glyphicon-th",
+            "icon": "fas fa-th-list",
             "name": {
-                "fr": "Vue liste (FR)",
+                "fr": "Vue liste",
                 "en": "List views (EN)",
                 "de": "List views (DE)"
             },
@@ -114,7 +115,7 @@
         "home": {
             "url": "app.home",
             "path": "config/views/home/home.html",
-            "icon": "glyphicon-home",
+            "icon": "fas fa-home",
             "name": {
                 "fr": "Accueil",
                 "en": "Home (EN)",
@@ -126,34 +127,12 @@
                 "de": "config/views/home/locales.de.json"
             }
         },
-        "mdViewObs": {
-            "type": "mdView",
-            "url": "app.mdViewObs",
-            "path": "config/views/md-view-obs/md-view-obs.html",
-            "icon": "glyphicon-eye-open",
-            "hierarchyLevels": ["dataset"],
-            "keywords": {
-                "fr": ["observatoire"],
-                "en": ["obs"],
-                "de": ["obs"]
-            },
-            "name": {
-                "fr": "Métadonnée",
-                "en": "Metadata (EN)",
-                "de": "Metadata (DE)"
-            },
-            "locales": {
-                "fr": "config/views/md-view-obs/locales.fr.json",
-                "en": "config/views/md-view-obs/locales.en.json",
-                "de": "config/views/md-view-obs/locales.de.json"
-            }
-        },
         "mdViewData": {
             "type": "mdView",
             "default": true,
             "url": "app.mdViewData",
             "path": "config/views/md-view-data/md-view-data.html",
-            "icon": "glyphicon-eye-open",
+            "icon": "fas fa-eye-open",
             "hierarchyLevels": ["dataseries", "dataset"],
             "keywords": {
                 "fr": ["données", "Données ouvertes"],
@@ -176,7 +155,7 @@
             "default": false,
             "url": "app.mdViewService",
             "path": "config/views/md-view-service/md-view-service.html",
-            "icon": "glyphicon-eye-open",
+            "icon": "fas fa-eye-open",
             "hierarchyLevels": ["service"],
             "keywords": {
                 "fr": [],
@@ -197,8 +176,9 @@
         "mdViewMap": {
             "type": "mdView",
             "url": "app.mdViewMap",
+            "default": false,
             "path": "config/views/md-view-map/md-view-map.html",
-            "icon": "glyphicon-eye-open",
+            "icon": "fas fa-eye-open",
             "hierarchyLevels": ["dataset"],
             "keywords": {
                 "fr": ["carte"],
@@ -214,6 +194,29 @@
                 "fr": "config/views/md-view-map/locales.fr.json",
                 "en": "config/views/md-view-map/locales.en.json",
                 "de": "config/views/md-view-map/locales.de.json"
+            }
+        },
+        "_mdViewObs": {
+            "type": "mdView",
+            "url": "app.mdViewObs",
+            "default": false,
+            "path": "config/views/md-view-obs/md-view-obs.html",
+            "icon": "fas fa-eye-open",
+            "hierarchyLevels": ["dataset"],
+            "keywords": {
+                "fr": ["observatoire"],
+                "en": ["obs"],
+                "de": ["obs"]
+            },
+            "name": {
+                "fr": "Métadonnée",
+                "en": "Metadata (EN)",
+                "de": "Metadata (DE)"
+            },
+            "locales": {
+                "fr": "config/views/md-view-obs/locales.fr.json",
+                "en": "config/views/md-view-obs/locales.en.json",
+                "de": "config/views/md-view-obs/locales.de.json"
             }
         }
     }

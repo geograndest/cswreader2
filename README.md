@@ -68,7 +68,7 @@ Les valeurs possibles sont généralement:
 
 #### `filter`
 
-Le paramètre `filter` permet d'appliquer un filtre simple sur les fiches. Il est activé lors du clic sur une étiquette ("WMS", "WFS" ou "open data").
+Le paramètre `filter` permet d'appliquer un filtre simple sur les fiches. Il est activé lors du clic sur une étiquette ("WMS", "WFS" ou "Open data").
 
 #### `maxRecords`
 
@@ -104,7 +104,7 @@ Le paramètre `displayCswBtn` permet de désactiver le module "changeCsw".
 
 #### Exemples d'URL paramétrées:
 
--   http://localhost:8000/index.html?lang=en&csw_url=https:%2F%2Fwww.cigalsace.org%2Fgeonetwork%2Fsrv%2Ffre%2Fcsw&csw_list=config%2Fcsw_url2.json&view=list&header=1&footer=0
+-   http://localhost:8000/index.html?lang=en&csw_url=https:%2F%2Fwww.geograndest.fr%2Fgeonetwork%2Fsrv%2Ffre%2Fcsw&csw_list=config%2Fcsw_url2.json&view=list&header=1&footer=0
 
 -   http://localhost:8000/index.html?lang=en&config=config%2Fconfig2.json&header=1
 
@@ -118,8 +118,8 @@ Extrait comment du fichier de configuration:
         "name": "cswReader",                                // Nom de l'application
         "title": "cswReader",                               // Titre de l'application
         "version": "2.0.0",                                 // Version de l'application
-        "copyrights": "(c) CIGAL / GéoGrandEst 2018",       // Copyrights apparaissant dans le footer
-        "copyrights_url": "https://www.cigalsace.org",      // URL du copyright
+        "copyrights": "(c) GéoGrandEst 20189",              // Copyrights apparaissant dans le footer
+        "copyrights_url": "https://www.geograndest.fr",     // URL du copyright
         "proxy": "php/index.php?url=",                      // URL du proxy. Laisser vide si non utilisé
         "lang": "fr",                                       // Langue par défaut si impossibilité d'utiser celle du navigateur
         "changeview_format": "button",                      // Format du module "changeView". 2 valuers possibles: 'list' et 'button'
@@ -155,12 +155,12 @@ Extrait comment du fichier de configuration:
             "id": "1",
             "title": "Catalogue GéoGrandEst - Géocatalogue",
             "description": "Flux CSW du serveur GéoGrandEst contenant les fiches publiés sur le Géocatalogue national (données Inspire).",
-            "url": "https://www.cigalsace.org/geonetwork/srv/fre/csw-geocatalogue"
+            "url": "https://www.geograndest.fr/geonetwork/srv/fre/csw-geocatalogue"
         }, {
             "id": "2",
             "title": "Catalogue GéoGrandEst - Général",
             "description": "Flux CSW du serveur GéoGrandEst contenant l'ensemble des fiches de métadonnées (cartes et données géographiques).",
-            "url": "https://www.cigalsace.org/geonetwork/srv/fre/csw"
+            "url": "https://www.geograndest.fr/geonetwork/srv/fre/csw"
         }]
     },
     "views": {                                              // Liste des vues
@@ -309,19 +309,18 @@ Les choix sont réalisés afin que:
 
 ### Principaux frameworks et bibliothèques utilisés
 
--   [jquery](https://jquery.com/) - version 3.3.1
--   [twitter bootstrap](http://getbootstrap.com/) - version 3.3.7
--   [angular js](https://angularjs.org/) - version 1.6.9
--   [ui-bootstrap](https://angular-ui.github.io/bootstrap/) - version 2.5.0
--   [ui-router](https://ui-router.github.io/ng1/) - version 1.0.15
--   [showdown](https://github.com/showdownjs/showdown) - version 1.8.1
--   [moment](http://momentjs.com/) - version 2.12.0
--   [ng-infinite-scroll](https://sroze.github.io/ngInfiniteScroll/) - version 1.3.0
--   [xml-js](https://github.com/nashwaan/xml-js) - version 1.6.2
+-   [twitter bootstrap](http://getbootstrap.com/) - version 4
+-   [angular js](https://angularjs.org/) - version 1.7.x
+-   [ui-bootstrap](https://angular-ui.github.io/bootstrap/) - version 3
+-   [ui-router](https://ui-router.github.io/ng1/) - version 1
+-   [showdown](https://github.com/showdownjs/showdown) - version 1.9.x
+-   [xml-js](https://github.com/nashwaan/xml-js) - version 1.6.2x
+
+Pour plus d'information sur les bibliothèques utilisées et leur version, se référer au fichier [packages.json](./packages.json)
 
 ### Bonnes pratiques
 
-Le développement de cette application s'appuie en grande partie sur **[AngularJS styleguide (ES2015)](https://github.com/toddmotto/angularjs-styleguide)** de Todd Motto.
+Le développement de cette application s'appuie en grande partie sur [AngularJS styleguide (ES2015)](https://github.com/toddmotto/angularjs-styleguide) de Todd Motto.
 
 ## Contribution
 
@@ -354,8 +353,21 @@ Pour compiler le code (cf. dossier build)
 npm run build
 ```
 
+## Versions
+
+**2.1.0**
+
+-   Passage à Bootstrap 4
+-   Adaptation du visuel: page d'accueil, vues catalogue et liste
+-   Ajout de fonctionnalités de tri sur les tags "opendata", "wms" et "wfs", soit à partir de la liste des résultats, soit à partir de l'en-tête de l'application (ajout de 3 boutons)
+
+**2.0.0**
+
+-   Reprise de l'ensemble de l'application sous la forme de composants AngaularJS version 1.6 en se basant sur sur [AngularJS styleguide (ES2015)](https://github.com/toddmotto/angularjs-styleguide) de Todd Motto
+
 ## TODO
 
 -   [ ] Mieux adapter la vue "csw-md-service" aux données de service
 -   [ ] Supprimer la double gestion data/service dans la vue "csw-md-data"
--   [ ] Permettre l'utilisation de filtres cumulatifs en cliquant sur les étiquettes "WMS", "WFS" et "Open data"
+-   [ ] Ajouter une possibilité de visualisation simple via openlayers des données si un flux WMS existe
+-   [x] Permettre l'utilisation de filtres cumulatifs en cliquant sur les étiquettes "WMS", "WFS" et "Open data"

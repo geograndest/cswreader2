@@ -19,6 +19,7 @@ export const changeCswComponent = {
         placeholder: '<',
         cswList: '<',
         cswUrl: '<',
+        // tooltip: '<',
         onChange: '&'
     },
     template: template,

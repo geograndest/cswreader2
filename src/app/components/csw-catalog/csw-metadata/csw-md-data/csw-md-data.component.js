@@ -12,6 +12,7 @@ const cswMdDataController = class CswMdDataController {
         this.CswCatalogServices.getRecord(this.csw, (data) => {
             this.record = data;
         });
+        this.viewerUrl = this.viewerUrl.split('?')[0]; // Remove '?' and parameters if exists
     }
 
     onPrint() {
@@ -27,8 +28,9 @@ const cswMdDataController = class CswMdDataController {
 export const cswMdDataComponent = {
     bindings: {
         tpl: '@',
-        csw: '<',
         md: '@',
+        viewerUrl: '@',
+        csw: '<',
         locales: '<',
         codelists: '<',
         goBack: '&'

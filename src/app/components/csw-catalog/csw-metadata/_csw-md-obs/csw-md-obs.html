@@ -1,10 +1,10 @@
 <div class="container">
-    <div class="btn-group pull-right" role="group">
+    <div class="btn-group float-right" role="group">
         <button class="btn btn-default btn-sm hidden-print" ng-click="$ctrl.onPrint()">
-            <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+            <span class="fas fa-print" aria-hidden="true"></span>
         </button>
         <button class="btn btn-default btn-sm" ng-click="$ctrl.onClose()">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            <span class="fas fa-times" aria-hidden="true"></span>
         </button>
     </div>
 
@@ -337,7 +337,7 @@
         <div id="browsegraphic" class="col-md-4">
             <!-- TODO -->
             <div ng-if="$ctrl.md.dataSpatialRepresentationType">
-                <div id="spatial-representation-type-label" class="label label-success pull-right" title="{{$ctrl.md.dataSpatialRepresentationType}}">{{$ctrl.md.dataSpatialRepresentationType}}</div>
+                <div id="spatial-representation-type-label" class="label label-success float-right" title="{{$ctrl.md.dataSpatialRepresentationType}}">{{$ctrl.md.dataSpatialRepresentationType}}</div>
             </div>
             <div ng-if="(($ctrl.record | getValue: 'getRecord': 'dataBrowseGraphics')[0] | getValue: 'getRecord':'browseGraphicFileName' | toString)">
                 <a href="{{ ($ctrl.record | getValue:
@@ -451,7 +451,7 @@
     <div class="col-md-12 ">
         <div id="modal-footer ">
             <small>
-                <span class="pull-right ">
+                <span class="float-right ">
                     <em class="text-info ">Fiche {{$ctrl.record | getValue:'getRecord':'mdFileIdentifier' | toString}} ({{$ctrl.record | getValue:'getRecord':'mdLanguage'
                         | toString}}) mise à jour le: {{$ctrl.record | getValue:'getRecord':'mdDateStamp' | toString}}</em>
                 </span>
